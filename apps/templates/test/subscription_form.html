@@ -1,0 +1,10 @@
+{% block title %}Subscribe{% endblock %}
+{% block content %}
+{{br}}<br>
+{{dr}}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ f }}
+        <input type="submit" value="Subscribe">
+    </form>
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Forms {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="py-4">
+      <div class="d-flex justify-content-between w-100 flex-wrap">
+          <div class="mb-3 mb-lg-0">
+              <h1 class="h4">{{dettemp.template_name.temp_name}}</h1>
+          </div>
+          
+      </div>
+      <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <p class="mb-0">This where you going to edit your tamplate.</p>
+        </div>
+        <div>
+            <form action="{% url 'website:upload' data.2%}" method="post">
+                {% csrf_token %} 
+                <input class="btn btn-success" type="submit" value="Upload data">
+              </form> 
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-12 mb-4">
+          <div class="card border-0 shadow components-section">
+              <div class="card-body">     
+                  <div class="row mb-4">
+                      <div class="col-lg-4 col-sm-6">
+                        <div class="my-4">
+                            <label for="textarea">Edit template text</label><br>
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                         </div>
+                          <!-- Form -->
+
+
+                        {% for i in data.0 %}
+                            {% with name1=data.1|get_value:i %}
+                                {% if i.0 != 't' and i.1 != 'm'%}
+                                <div class="my-4">
+
+                                <form action="" method="post">
+                                    {% csrf_token %} 
+                                    <label for="textarea">Edit template text</label>
+                                    <textarea class="form-control" type="text" name="{{i}}" rows="4" cols="60" hx-post="/website/update/{{data.2}}" hx-trigger="keyup mouseleave" hx-target="#{{i}}">{{name1|get_value:'text'}}</textarea>
+                                    <small id="{{i}}" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </form>
+                                </div>
+                            
+                                <hr>
+                                {% endif %}
+                            {% endwith %}
+                        {% endfor %}
+
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+
+                          <!-- Form -->
+                          <div class="my-4">
+                              <label for="textarea">Template Images</label><br>
+                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+
+                            {% for i in data.0 %}
+                            {% with name1=data.1|get_value:i %}
+                            {% if i.0 == 'i' %}
+                            <div class="mb-3">
+                                <form action="{%url 'website:imupdate' data.2 %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %} 
+                                    <label for="formFile" class="form-label"> {{name1|get_value:'text'}}</label>
+                                    <input class="form-control" required type="file" name="{{i}}" accept=".jpg, .jpeg, .png">
+                                    <input type="submit" class="btn btn-secondary" value="Submit"><br>
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        
+                                    <img src="{{fileloc}}/{{name1|get_value:'text'}}" alt="">
+                                </form> 
+                            </div>
+                            <hr>
+                            {% endif %}
+                            {% endwith %}
+                            {% endfor %}
+                          
+                          <!-- End of Form -->
+                      </div>
+                      <div class="col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                              <label for="birthday">Table Data</label>
+                              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                          </div>
+                          {% for o in data.3 %}
+                            {% with name2=data.4|get_value:o %}
+                            {{name2|get_value:'name'}}<br>
+                            {% for c in name2|get_value:'data'%}
+                                {% for b2 in name2|get_value:'table_order' %}
+                                {% with tabdi=c|get_value:b2 %}
+                                {% if b2 != 'img' %}
+                                    <p>{{tabdi|get_value:'text'}}</p>
+                                    {% else %}
+                                    
+                                <button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">view image</button>
+                          <!-- Modal Content -->
+                                    <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h2 class="h4 modal-title">Table Image</h2>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img id="{{c|get_value:'id'}}" src="{{fileloc}}/{{tabdi|get_value:'text'}}" alt="">
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                
+                                {% endwith %}
+                                {% endfor %}
+                            <form action="{%url 'website:removtable' data.2 %}" method="post">
+                            {% csrf_token %} 
+                            <input class="form-control" type="text" name="tablename" hidden value={{o}}>
+                            <input class="form-control" type="text" name="tableid" hidden value={{c|get_value:'id'}}>
+                            <input class="btn btn-secondary" type="submit" value="Remove">
+                            </form> 
+                            {% endfor %}
+                            <form action="{%url 'website:updatetable' data.2 %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %} 
+                            <input class="form-control" required type="text" name="tablename" hidden value={{o}}><br>
+                            {% for b in name2|get_value:'table_order' %}
+                            {{b}}<br>
+                            {% if b == 'img' %}
+                            
+                            <input class="form-control" required type="file" name="{{b}}" accept=".jpg, .jpeg, .png"><br>
+                            {% else %}
+                            <textarea class="form-control" required type="text" name="{{b}}" rows="4" cols="60" hx-post="/website/update/{{data.2}}" hx-trigger="keyup mouseleave" hx-target="#{{i}}" >
+                                </textarea><br>
+                            {% endif %}
+                            {% endfor %}
+                            <input class="btn btn-secondary" type="submit" value="Submit">
+                            </form> 
+                            <hr>
+                            {% endwith %}
+                            {% endfor %}
+                          <!-- End of Form -->
+                      </div>
+                  </div>
+                 
+              </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

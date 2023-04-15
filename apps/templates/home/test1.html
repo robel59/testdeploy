@@ -1,0 +1,174 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Sign IN {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main>
+        <section class="section section-lg bg-white" id="pricing">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <h2 class="h1 fw-bold mb-3">service payment</h2>
+                        <p class="lead mb-4">select one of the folloeing payment methed below.</p>
+                      
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="github-big-icon">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center mt-4">
+                    
+
+    <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">     
+                <div class="row d-block mt-4">
+                    <div class="col-lg-4 mt-4">
+                        <!-- Button Modal -->
+                        <button type="button" class="btn btn-block btn-gray-800 mb-3" data-bs-toggle="modal" data-bs-target="#modal-default">Default</button>
+                        <!-- Modal Content -->
+                        <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="h6 modal-title">This where you add your inforamtion. you can look up where they locatied on websit</h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form id="dislodge-form">
+                                    <div class="modal-body">
+
+                                            {% for i in data.0 %}
+                                                {% with name1=data.1|get_value:i %}
+                                                    {% if i.0 != 't' and i.1 != 'm'%}
+                                                    <div class="form-section" style="display:none">
+                    
+                                                    <form action="" method="post">
+                                                        {% csrf_token %} 
+                                                        <label for="textarea">Add or edit</label>
+                                                        <textarea class="form-control" type="text" name="{{i}}" rows="4" cols="60" hx-post="/website/update/{{data.2}}" hx-trigger="keyup mouseleave" hx-target="#{{i}}">{{name1|get_value:'text'}}</textarea>
+                                                        <small id="{{i}}" class="form-text text-muted">type your data we will save it automaticly.</small>
+                                                    </form>
+                                                    </div>
+                                                
+                                                    
+                                                    {% endif %}
+                                                {% endwith %}
+                                            {% endfor %}
+                                        
+                                            
+                                          
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="back-btn" style="display:none" class="btn btn-secondary">Back</button>
+                                        <h3 id="submit-btn" style="display:none">all data entered</h3>
+                                        <button type="button" id="next-btn"  class="btn btn-secondary">Next</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Modal Content -->
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="mt-lg-6 row">
+    <div class="text-center col-12">
+       <h2 class="h5 text-gray fw-normal mb-4">Available in the following technologies:</h2>
+       <div>
+            <a class="me-3 card-link" href="https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard" target="_blank">
+                <img src="/static/assets/img/technologies/bootstrap-5-logo.svg" class="image image-sm">
+            </a>
+            <a class="me-3 card-link" href="https://demo.themesberg.com/volt-react-dashboard/#/" target="_blank">
+                <img src="/static/assets/img/technologies/react-logo.svg" class="image image-sm">
+            </a>
+            <a class="me-3 card-link" href="https://appseed.us/admin-dashboards/flask-dashboard-volt" target="_blank">
+                <img src="/static/assets/img/technologies/flask-logo.svg" class="image image-sm">
+            </a>
+            <a class="me-3 card-link" href="https://appseed.us/admin-dashboards/django-dashboard-volt" target="_blank">
+                <img src="/static/assets/img/technologies/django-logo.svg" class="image image-sm">
+            </a>                             
+        </div>
+    </div>
+</div>
+</div>
+</section>
+</main>
+
+<script>
+    const form = document.querySelector('#dislodge-form');
+    const nextBtn = document.querySelector('#next-btn');
+    const backBtn = document.querySelector('#back-btn');
+    const submitBtn = document.querySelector('#submit-btn');
+    
+    // get references to each form section
+    const sections = form.querySelectorAll('.form-section');
+    
+    // keep track of the current section index
+    let currentSectionIndex = 0;
+    
+    // show the current section and hide the others
+    function showCurrentSection() {
+      for (let i = 0; i < sections.length; i++) {
+        if (i === currentSectionIndex) {
+          sections[i].style.display = 'block';
+        } else {
+          sections[i].style.display = 'none';
+        }
+      }
+      
+      // show or hide the appropriate buttons
+      if (currentSectionIndex === 0) {
+        backBtn.style.display = 'none';
+      } else {
+        backBtn.style.display = 'block';
+      }
+      
+      if (currentSectionIndex === sections.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+      } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+      }
+    }
+    
+    // navigate to the next section
+    function goToNextSection() {
+      currentSectionIndex++;
+      showCurrentSection();
+    }
+    
+    // navigate to the previous section
+    function goToPreviousSection() {
+      currentSectionIndex--;
+      showCurrentSection();
+    }
+    
+    // add event listeners to the buttons
+    nextBtn.addEventListener('click', goToNextSection);
+    backBtn.addEventListener('click', goToPreviousSection);
+    
+    // show the first section by default
+    showCurrentSection();
+    </script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}
+
+
+
+<iframe id="my-iframe" allow-same-origin src="http://localhost:53271/"></iframe>

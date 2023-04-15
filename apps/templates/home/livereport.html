@@ -1,0 +1,262 @@
+{% extends "layouts/base-fullscreen.html" %}
+{% load django_htmx %}
+{% block title %} Sign UP {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="row" style="background-color: rgb(8, 8, 8);">
+    
+  <div class="col-12 col-sm-8 col-xl-6 mb-4">
+    <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+        <div class="d-sm-none">
+            <h2 class="h5">Customers</h2>
+            <h3 class="fw-extrabold mb-1">345,678</h3>
+        </div>
+    </div>
+    <div class="card border-0 shadow" style="background-color: rgb(8, 8, 8);">
+   
+        <canvas id="cobe" style="height: 600px;"></canvas>
+
+    </div>
+  </div>
+  <div class="col-xl-6  col-sm-4">
+    <br>
+    <div class="row">
+      <div class="col-12 col-sm-4 col-xl-4 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 px-xl-0">
+                      
+                            <h5>Today's vister</h4>
+                            <h3 class="fw-extrabold mb-2" id="todayvister"></h3>                      
+                                <p id="since_yester"></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-4 col-xl-4 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 px-xl-0">
+                      
+                            <h5>Online now</h4>
+                            <h3 class="fw-extrabold mb-2" id="onlinenow"></h3> 
+                            
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-4 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                    <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                        <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0">
+                            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <div class="d-sm-none">
+                            <h2 class="fw-extrabold h5">Revenue</h2>
+                            <h3 class="mb-1">$43,594</h3>
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-7 px-xl-0">
+                        <div class="d-none d-sm-block">
+                            <h2 class="h6 text-gray-400 mb-0">Revenue</h2>
+                            <h3 class="fw-extrabold mb-2">$43,594</h3>
+                        </div>
+                        <small class="d-flex align-items-center text-gray-500">
+                            Feb 1 - Apr 1,  
+                            <svg class="icon icon-xxs text-gray-500 ms-2 me-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg>
+                            GER
+                        </small> 
+                        <div class="small d-flex mt-1">                               
+                            <div>Since last month <svg class="icon icon-xs text-danger" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg><span class="text-danger fw-bolder">2%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-xl-12 mb-4">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                
+               
+               
+               
+               
+                
+                
+                
+                <canvas id="myChart"></canvas>
+                
+                
+                
+                
+                
+                
+                
+                
+               
+              
+            
+                                
+                
+            </div>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
+{{ webid|json_script:"webid" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module">
+  import createGlobe from "https://cdn.skypack.dev/cobe";
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'currently online visitors',
+      data: [],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      borderWidth: 1,
+      tension: 0.2
+    }]
+  },
+  
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Real-time chart'
+      },
+      legend: {
+        display: false
+      }
+    },
+    scales: {
+      x: {
+        display: true,
+      },
+      y: {
+        display: true,
+      }
+    }
+  }
+});
+
+
+ 
+ 
+  var host = "ws://127.0.0.1:8060/ws/time/";
+  const ws = new WebSocket(host)
+  const webid = document.getElementById('webid').textContent
+  console.info("CCCCCCCCCCCCCCCCCCCCCCccc")
+  console.info(webid)
+  var datamap = []
+  ws.onopen = () => {
+    console.log('Websocket connection opened')
+    // Send data via websocket
+    ws.send(JSON.stringify({ type: 'client_message', data: webid }))
+  }
+  ws.onmessage = (message) => {
+    console.log('Received message: ', message)
+    const data = JSON.parse(message.data)
+    
+    datamap = []
+    console.info("FFFFFFFFFFFFFFFFFFFFFFFFFF")
+    console.info(data.message)
+    var data1 = data.message
+    var b = data1.replace(/'/g, '"');
+    var mn = JSON.parse(b)
+    console.info(mn.map)
+    datamap = mn.map;
+    document.getElementById("todayvister").innerHTML = mn.today_vister;
+    document.getElementById("since_yester").innerHTML = "yesturday : "+mn.yester_vister;
+    document.getElementById("onlinenow").innerHTML = mn.onlinenow;
+
+
+     // Add the value and label to the chart data
+     console.info("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCSSSSSSSSSSSSSSEEEEEEEEEEWW")
+     console.info(mn.polte_chart)
+    chart.data.labels.push(mn.polte_chart[1]);
+    chart.data.datasets[0].data.push(mn.polte_chart[0]);
+    
+     // Limit the chart data to 20 data points
+     if (chart.data.labels.length > 50) {
+       chart.data.labels.shift();
+       chart.data.datasets[0].data.shift();
+     }
+
+     // Update the chart
+     chart.update();
+
+
+
+    switch (data.type) {
+      case 'server_message':
+        // do something
+        break
+    }
+  }
+  ws.onclose = () => {
+    console.log('Websocket connection closed')
+  }
+
+  let phi = 0;
+  let canvas = document.getElementById("cobe");
+
+  const globe = createGlobe(canvas, {
+    devicePixelRatio: 2,
+    width: 1200,
+    height: 1200,
+    phi: 0,
+    theta: 0,
+    dark: 1,
+    diffuse: 1.2,
+    scale: 1,
+    mapSamples: 15000,
+    mapBrightness: 10,
+    baseColor: [1, 1, 1],
+    markerColor: [1, 0.9, 0.6],
+    glowColor: [0.1, 1, 1],
+    offset: [0, 0],
+    markers: [
+    
+  { location: [37.7595, -122.4367], size: 0.05 },
+  { location: [40.6128, -74.008], size: 0.05 },
+  { location: [40.7128, -74.009], size: 0.05 },
+  { location: [35.6128, -74.01], size: 0.05 },
+
+    ],
+    onRender: (state) => {
+      // Called on every animation frame.
+      // `state` will be an empty object, return updated params.
+      state.phi = phi;
+      state.markers = datamap
+      phi += 0.01;
+    }
+  });
+
+</script>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
